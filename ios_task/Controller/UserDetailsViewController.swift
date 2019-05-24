@@ -21,6 +21,9 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var catchPhrase: UILabel!
     @IBOutlet weak var bs: UILabel!
+    @IBOutlet weak var lat: UILabel!
+    @IBOutlet weak var lng: UILabel!
+    
     
     var userDetails:User?
     
@@ -43,6 +46,8 @@ class UserDetailsViewController: UIViewController {
             companyName.text = userDetails.company.name
             catchPhrase.text = userDetails.company.catchPhrase
             bs.text = userDetails.company.bs
+            lat.text = userDetails.address.geo["lat"]
+            lng.text = userDetails.address.geo["lng"]
         }
         
         
