@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="imageCell" id="gTV-IL-0wX" customClass="imageCell" customModule="ios_task" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="191" height="190"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="191" height="190"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8kn-jp-Mbg">
+                        <rect key="frame" x="0.0" y="0.0" width="191" height="126.5"/>
+                        <color key="backgroundColor" red="0.90580290559999999" green="0.90593320129999999" blue="0.90577441449999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </imageView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" text="Lorem ipsum dolor sit er elit lamet" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C1f-dX-iTT">
+                        <rect key="frame" x="0.0" y="126.5" width="191" height="63.5"/>
+                        <color key="backgroundColor" red="0.88332283496856689" green="0.89063912630081177" blue="0.90121656656265259" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.88332283496856689" green="0.89063912630081177" blue="0.90121656656265259" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="C1f-dX-iTT" firstAttribute="top" secondItem="8kn-jp-Mbg" secondAttribute="bottom" id="9b4-BU-BDt"/>
+                <constraint firstItem="C1f-dX-iTT" firstAttribute="height" secondItem="8kn-jp-Mbg" secondAttribute="height" multiplier="0.5" id="Am4-mR-Qki"/>
+                <constraint firstItem="8kn-jp-Mbg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Bl6-J3-rR7"/>
+                <constraint firstAttribute="trailing" secondItem="C1f-dX-iTT" secondAttribute="trailing" id="UfS-Ni-B3R"/>
+                <constraint firstAttribute="trailing" secondItem="8kn-jp-Mbg" secondAttribute="trailing" id="efp-qA-6YQ"/>
+                <constraint firstAttribute="bottom" secondItem="C1f-dX-iTT" secondAttribute="bottom" id="o2q-hk-EHQ"/>
+                <constraint firstItem="C1f-dX-iTT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rIr-Cg-VkM"/>
+                <constraint firstItem="8kn-jp-Mbg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zxd-P2-c7M"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="191" height="190"/>
+            <connections>
+                <outlet property="thumbnailImage" destination="8kn-jp-Mbg" id="hBr-YT-Gj9"/>
+                <outlet property="title" destination="C1f-dX-iTT" id="u6n-BI-Vdq"/>
+            </connections>
+            <point key="canvasLocation" x="174.63768115942031" y="132.58928571428572"/>
+        </collectionViewCell>
+    </objects>
+</document>
