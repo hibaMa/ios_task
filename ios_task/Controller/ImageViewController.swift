@@ -30,7 +30,7 @@ class ImageViewController: UIViewController {
         if let url = imageURL{
             Alamofire.request(url).responseImage { (response) in
                 if response.result.isSuccess{
-                    self.imageView.image=response.result.value
+                    self.imageView.image = response.result.value
                 }else{
                     self.showAlertMesage(title: "connection error ", msg: "\(response.result.error!)")
                     print("connection error :\(response.result.error!)")

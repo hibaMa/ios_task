@@ -15,11 +15,11 @@ import AlamofireImage
 class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     
     let IMAGES_DATA_URL = "http://jsonplaceholder.typicode.com/photos"
-
+    
     @IBOutlet weak var layout: UICollectionViewFlowLayout!
     @IBOutlet weak var photosCollectionView: UICollectionView!
     
-
+    
     var imagessDetails=[image]()
     var albums=[String:[image]]() //key is section_id , value: array of images in section
     
@@ -75,11 +75,12 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
             img.title=imageDetails["title"].stringValue
             img.url=imageDetails["url"].stringValue
             img.thumbnailUrl=imageDetails["thumbnailUrl"].stringValue
+            
             //add image to album
             if albums[img.albumId] != nil {
                 albums[img.albumId]?.append(img)
             }else{
-                albums[img.albumId]=[image]()
+                albums[img.albumId] = [image]()
                 albums[img.albumId]?.append(img)
             }
             
@@ -120,7 +121,18 @@ extension PhotosViewController{
         let img:image? = albums[albom]?[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! imageCell
-        cell.cellDetails = img
+     
+        if let img = img{
+            cell.title.text = img.title
+            Alamofire.request(img.thumbnailUrl).responseImage { (response) in
+                if response.result.isSuccess{
+                    cell.thumbnailImage.image=response.result.value
+                }else{
+                    
+                    print("connection error")
+                }
+            }
+        }
         
         return cell
     }

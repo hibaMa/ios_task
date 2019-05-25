@@ -31,10 +31,11 @@ class UsersViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func configureTableView() {
         usersTableView.rowHeight = UITableView.automaticDimension
-        usersTableView.estimatedRowHeight = 120.0
+        usersTableView.estimatedRowHeight = 80.0
     }
     
     func getUsersData(){
+        ProgressHUD.show()
         Alamofire.request(USERS_URL).responseJSON { (response) in
             if response.result.isSuccess{
                 let userDataJSON:JSON = JSON(response.result.value!)
@@ -47,6 +48,7 @@ class UsersViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func putDataIntoModel(json usersData:JSON){
+        ProgressHUD.dismiss()
         usersDetails = usersData.map { (key,userDetails) in
             let user=User()
             user.id = userDetails["id"].intValue
@@ -80,8 +82,9 @@ class UsersViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="moveToUserDetails"{
             let dest = segue.destination as! UserDetailsViewController
-            let indexPath = usersTableView.indexPathForSelectedRow
-            dest.userDetails=self.usersDetails[(indexPath?.row)!]
+            if let indexPath = usersTableView.indexPathForSelectedRow{
+                dest.userDetails=self.usersDetails[indexPath.row]
+            }
             
         }
     }

@@ -39,6 +39,7 @@
 		72859B492296E530004DD924 /* userCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = userCell.xib; sourceTree = "<group>"; };
 		72859B4A2296E530004DD924 /* userCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userCell.swift; sourceTree = "<group>"; };
 		72859B4D2296E5FF004DD924 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		72D00233229946D6001E5E08 /* ios_task-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios_task-Bridging-Header.h"; sourceTree = "<group>"; };
 		72D880A7229835560056E8DF /* image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = image.swift; sourceTree = "<group>"; };
 		72D880AD229850E30056E8DF /* imageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = imageCell.swift; path = ios_task/View/imageCell.swift; sourceTree = SOURCE_ROOT; };
 		72D880AE229850E30056E8DF /* imageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = imageCell.xib; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 				72859B472296E507004DD924 /* Controller */,
 				72859B3A2296E4DA004DD924 /* Assets.xcassets */,
 				72859B3F2296E4DA004DD924 /* Info.plist */,
+				72D00233229946D6001E5E08 /* ios_task-Bridging-Header.h */,
 			);
 			path = ios_task;
 			sourceTree = "<group>";
@@ -192,6 +194,7 @@
 				TargetAttributes = {
 					72859B2F2296E4D9004DD924 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -431,6 +434,7 @@
 			baseConfigurationReference = 8155587A718EABF792B592AE /* Pods-ios_task.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XS9GUVATE8;
 				INFOPLIST_FILE = ios_task/Info.plist;
@@ -440,6 +444,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hiba.asal.ios-task";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ios_task/ios_task-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,6 +456,7 @@
 			baseConfigurationReference = A5AB56DAEF907E67FEE17CA4 /* Pods-ios_task.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XS9GUVATE8;
 				INFOPLIST_FILE = ios_task/Info.plist;
@@ -459,6 +466,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hiba.asal.ios-task";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ios_task/ios_task-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

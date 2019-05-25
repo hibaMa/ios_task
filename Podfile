@@ -9,5 +9,6 @@ target 'ios_task' do
    pod 'Alamofire'
    pod 'SwiftyJSON'
    pod 'AlamofireImage'
+   pod 'ProgressHUD'
 
 end

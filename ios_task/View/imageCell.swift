@@ -15,24 +15,8 @@ class imageCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailImage: UIImageView!
     @IBOutlet weak var title: UITextView!
     
-    var cellDetails:image?{
-        didSet{
-            updateUi()
-        }
-    }
-    
     func updateUi(){
-        if let cellDetails = cellDetails{
-            title.text = cellDetails.title
-            Alamofire.request(cellDetails.thumbnailUrl).responseImage { (response) in
-                if response.result.isSuccess{
-                    self.thumbnailImage.image=response.result.value
-                }else{
-                    
-                    print("connection error")
-                }
-            }
-        }
+
         
     }
     
