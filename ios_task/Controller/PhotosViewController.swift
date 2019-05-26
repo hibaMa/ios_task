@@ -87,8 +87,13 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
             return img
         }
         
-        albumsImages = [[image]](albums.values)
-        albumsName =  [String](albums.keys)
+        
+        let sortedAlbums = albums.sorted { Int($0.key)! <  Int($1.key)! }
+        
+        albumsImages = sortedAlbums.map{(key,value) in value}
+        albumsName = sortedAlbums.map{(key,value) in key}
+        
+       
         
         photosCollectionView.reloadData()
         
@@ -121,9 +126,9 @@ extension PhotosViewController{
         let img:image? = albums[albom]?[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! imageCell
-     
+        
         if let img = img{
-            cell.title.text = img.title
+            cell.title.text = "\(img.albumId) " + img.title
             Alamofire.request(img.thumbnailUrl).responseImage { (response) in
                 if response.result.isSuccess{
                     cell.thumbnailImage.image=response.result.value
