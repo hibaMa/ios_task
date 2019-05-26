@@ -21,10 +21,8 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     var imagessDetails=[image]()
-    var albums=[String:[image]]() //key is section_id , value: array of images in section
-    
-    var albumsImages = [[image]]()
-    var albumsName = [String]()
+    var albums=[Int:[image]]() //key is section_id , value: array of images in section
+    var sortedAlbums = [(key: Int, value: [image])]()
     
     var selectedImage=image()
     
@@ -36,7 +34,7 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
         photosCollectionView.register(UINib(nibName: "imageCell", bundle: nil), forCellWithReuseIdentifier: "imageCell")
         
         layout.minimumLineSpacing = 5
-        layout .minimumInteritemSpacing = 5
+        layout.minimumInteritemSpacing = 5
         let cellWidth=(self.view.frame.size.width-20)/2
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
@@ -51,7 +49,7 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
         Alamofire.request(IMAGES_DATA_URL).responseJSON { (response) in
             if response.result.isSuccess{
                 let imagesDataJSON:JSON = JSON(response.result.value!)
-                self.putDataIntoModel(json:imagesDataJSON)
+                self.updateUI(json:imagesDataJSON)
             }else{
                 self.showAlertMesage(title: "connection error ", msg: "\(response.result.error!)")
                 print("connection error :\(response.result.error!)")
@@ -65,12 +63,12 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
         self.present(alert, animated: true, completion: nil)
     }
     
-    func putDataIntoModel(json imagesData:JSON){
+    func updateUI(json imagesData:JSON){
         
         imagessDetails = imagesData.map { (key,imageDetails) in
             
             let img = image()
-            img.albumId=imageDetails["albumId"].stringValue
+            img.albumId=imageDetails["albumId"].intValue
             img.id=imageDetails["id"].intValue
             img.title=imageDetails["title"].stringValue
             img.url=imageDetails["url"].stringValue
@@ -88,12 +86,7 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
         }
         
         
-        let sortedAlbums = albums.sorted { Int($0.key)! <  Int($1.key)! }
-        
-        albumsImages = sortedAlbums.map{(key,value) in value}
-        albumsName = sortedAlbums.map{(key,value) in key}
-        
-       
+        sortedAlbums = albums.sorted { $0.key <  $1.key }
         
         photosCollectionView.reloadData()
         
@@ -113,30 +106,30 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate,UICollecti
 extension PhotosViewController{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return albumsName.count
+        return sortedAlbums.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumsImages[section].count
+        return sortedAlbums[section].value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let albom = albumsName[indexPath.section]
-        let img:image? = albums[albom]?[indexPath.row]
+        
+        let img:image = sortedAlbums[indexPath.section].value[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! imageCell
         
-        if let img = img{
-            cell.title.text = "\(img.albumId) " + img.title
-            Alamofire.request(img.thumbnailUrl).responseImage { (response) in
-                if response.result.isSuccess{
-                    cell.thumbnailImage.image=response.result.value
-                }else{
-                    
-                    print("connection error")
-                }
+        
+        cell.title.text = img.title
+        Alamofire.request(img.thumbnailUrl).responseImage { (response) in
+            if response.result.isSuccess{
+                cell.thumbnailImage.image=response.result.value
+            }else{
+                
+                print("connection error")
             }
+            
         }
         
         return cell
@@ -144,13 +137,13 @@ extension PhotosViewController{
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as! ImagesHeaderView
-        headerCell.sectionTitle.text = albumsName[indexPath.section]
+        headerCell.sectionTitle.text = "\(sortedAlbums[indexPath.section].key)"
         return headerCell
         
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let albom = albumsName[indexPath.section]
-        selectedImage = albums[albom]![indexPath.row]
+        selectedImage = sortedAlbums[indexPath.section].value[indexPath.row]
         performSegue(withIdentifier: "showImage", sender: self)
     }
     

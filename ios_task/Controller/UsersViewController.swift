@@ -39,7 +39,7 @@ class UsersViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         Alamofire.request(USERS_URL).responseJSON { (response) in
             if response.result.isSuccess{
                 let userDataJSON:JSON = JSON(response.result.value!)
-                self.putDataIntoModel(json:userDataJSON)
+                self.updateUI(json:userDataJSON)
             }else{
                 self.showAlertMesage(title: "connection error ", msg: "\(response.result.error!)")
                 print("connection error : \( response.result.error! )")
@@ -47,7 +47,7 @@ class UsersViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         }
     }
     
-    func putDataIntoModel(json usersData:JSON){
+    func updateUI(json usersData:JSON){
         ProgressHUD.dismiss()
         usersDetails = usersData.map { (key,userDetails) in
             let user=User()
